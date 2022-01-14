@@ -1,0 +1,39 @@
+# this is a yaml file
+# It doesnt matter if there are missing table, the program will take care of that
+# 'Home' must be a REACHABLE goal, name of goal must be 'Table __ '. Can set up to 12 Tables, in the below format:
+
+home:
+- 'home'
+- 12.3
+- -5.2
+- -0.00143
+- 'pose'
+
+Table 1:
+- 'Table 1'
+- 7.64 
+- -4.92 
+- -0.00143
+- 'pose'
+
+Table 2:
+- 'Table 2'
+- 7.71
+- -3.12
+- -0.00143
+- 'pose'
+
+Table 8:
+- 'Table 8'
+- 9.22
+- -3.17
+- -0.00534
+- 'pose'
+
+Table 10:
+- 'Table 10'
+- 14
+- -4.91
+- -0.00534
+- 'pose'
+

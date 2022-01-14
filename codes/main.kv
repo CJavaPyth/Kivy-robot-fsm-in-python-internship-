@@ -1,0 +1,889 @@
+
+##################################### Styling for GUI ########################################
+WindowManager:
+    TableScreen:
+    NavigatingScreen:
+    SuccessfulScreen:
+    ToHomeScreen:
+    FailScreen:
+    BatteryScreen:
+    MoreTableScreen:
+    MultiPathScreen:
+
+<TableScreen>:
+    name: "table"
+
+    GridLayout:
+        cols: 1
+        size: root.height, root.width
+        padding: 10,0,10,150
+
+        MDLabel:
+            id: tl1
+            text: "Choose a goal: \n\n"
+            text_size: self.size
+            bold: True
+            halign: 'center'
+            padding_y: 50
+            
+        GridLayout:
+            cols: 3
+            rows: 3
+            #padding: [150,15,15,150]
+            #spacing: [100,100]
+
+            ToggleButton:
+                text: root.message_1
+                bold: True
+                font_size: 15
+                id: butt1
+                group: 'tables'
+                on_press: root.check_which_table()
+            ToggleButton:
+                text: root.message_2
+                bold: True
+                id: butt2
+                group: 'tables'
+                on_press: root.check_which_table()
+            ToggleButton:
+                text: root.message_3
+                bold: True
+                id: butt3
+                group: 'tables'
+                on_press: root.check_which_table()
+            ToggleButton:
+                text: root.message_4
+                bold: True
+                id: butt4
+                group: 'tables'
+                on_press: root.check_which_table()
+            ToggleButton:
+                text: root.message_5
+                bold: True
+                id: butt5
+                group: 'tables'
+                on_press: root.check_which_table()
+            ToggleButton:
+                text: root.message_6
+                bold: True
+                id: butt6
+                group: 'tables'
+                on_press: root.check_which_table()
+    Button:
+        text: "Check Battery"
+        size_hint: 0.3,0.5
+        on_release:
+            app.root.current = "robatt"
+            root.manager.transition.direction = "right"
+        pos_hint: {'x': 0.04, 'y': 0.82}
+        size_hint: 0.13, 0.05
+        md_bg_color: 0.248,0.650,0.356,1
+            
+    MDRaisedButton:
+        text: "GO"
+        on_press: root.go_to_table()
+        id: buttGo
+        on_release:
+            root.go_to_table() 
+            if root.go_to_table() != False: app.root.current = "navigating"
+            root.manager.transition.direction = "left"
+        pos_hint: {'x': 0.8, 'y': 0.11}
+        size_hint: 0.1, 0.05
+        md_bg_color: 0.149,0.650,0.356,1
+    
+    MDFillRoundFlatButton:
+        text: "Next page"
+        id: nextPage
+        pos_hint: {'x': 0.44, 'y': 0.08}
+        size_hint: 0.12, 0.07
+        md_bg_color: 54/255,69/255,79/255, 1
+        on_release:
+            app.root.current = 'next_page'
+            root.manager.transition.direction = "up"
+
+    MDRaisedButton:
+        text: "Multiple paths"
+        id: multiPath
+        pos_hint: {'x': 0.10, 'y': 0.11}
+        size_hint: 0.12, 0.05
+        md_bg_color: 0.811,0,0.0588,1
+        on_release:
+            app.root.current = 'multi_path'
+            root.manager.transition.direction = "right"
+
+<MoreTableScreen>:
+    name: 'next_page'
+
+    BoxLayout:
+        orientation: 'vertical'
+        cols: 1
+        size: root.height, root.width
+        padding: 10,50,10,190
+
+        MDFillRoundFlatButton:
+            text: "Previous page"
+            id: prevPage
+            pos_hint: {'x': 0.43, 'y': 0.9}
+            md_bg_color: 54/255,69/255,79/255, 1
+            on_release:
+                app.root.current = 'table'
+                root.manager.transition.direction = "down"
+        MDLabel:
+            id: mtl1
+            bold: True
+            halign: 'center'
+
+        GridLayout:
+            cols: 3
+            rows: 3
+            #spacing: [100,100]
+
+            ToggleButton:
+                text: root.message_7
+                bold: True
+                font_size: 15
+                id: butt7
+                group: 'tables'
+                on_press: root.check_which_table()
+
+            ToggleButton:
+                text: root.message_8
+                bold: True
+                id: butt8
+                group: 'tables'
+                on_press: root.check_which_table()
+
+            ToggleButton:
+                text: root.message_9
+                bold: True
+                id: butt9
+                group: 'tables'
+                on_press: root.check_which_table()
+
+            ToggleButton:
+                text: root.message_10
+                bold: True
+                id: butt10
+                group: 'tables'
+                on_press: root.check_which_table()
+
+            ToggleButton:
+                text: root.message_11
+                bold: True
+                id: butt11
+                group: 'tables'
+                on_press: root.check_which_table()
+
+            ToggleButton:
+                text: root.message_12
+                bold: True
+                id: butt12
+                group: 'tables'
+                on_press: root.check_which_table()
+
+    MDRaisedButton:
+        text: "GO"
+        on_press: root.go_to_table()
+        id: buttGo
+        on_release:
+            root.go_to_table() 
+            if root.go_to_table() != False: app.root.current = "navigating"
+            root.manager.transition.direction = "left"
+        pos_hint: {'x': 0.8, 'y': 0.11}
+        size_hint: 0.1, 0.05
+        md_bg_color: 0.149,0.650,0.356,1
+
+
+<MultiPathScreen>:
+    name: "multi_path"
+
+    BoxLayout:
+        orientation: 'vertical'
+        padding: 10,0,10,100
+
+        MDLabel:
+            id: mpl1
+            text: "Select goals in sequence(up to 5 goals): \n Select '--' if you want to set less than 5 goals. \n If a goal is invalid, it will be skipped. The remaining goals can still be navigated to. \n The same goal can be set more than once.\n"
+            text_size: self.size
+            bold: True
+            halign: 'center'
+            padding_y: 50
+
+        GridLayout:
+            cols: 4
+            rows: 5
+            padding: [50,0,0,50]
+            spacing: [120,50]
+            
+            MDLabel:
+                text: "1st Goal: "
+
+            MDRaisedButton:
+                text: "Select"
+                id: dpbtn1
+                on_parent: drop_content1.dismiss()
+                on_release: drop_content1.open(self)
+
+            DropDown:
+                id: drop_content1
+                on_select: dpbtn1.text = f'{args[1]}' # see note below
+
+                Button:
+                    id: dpbtn1btn--
+                    text: '--'
+                    size_hint: None, None
+                    height: 35
+                    on_release: drop_content1.select('--')
+
+                Button:
+                    id: dpbtn1btn1
+                    text: 'Table 1'
+                    size_hint: None, None
+                    height: 35
+                    on_release: drop_content1.select('Table 1')
+                Button:
+                    id: dpbtn1btn2
+                    text: 'Table 2'
+                    size_hint: None, None
+                    height: 35
+                    on_release: drop_content1.select('Table 2')
+                Button:
+                    id: dpbtn1btn3
+                    text: 'Table 3'
+                    size_hint: None, None
+                    height: 35
+                    on_release: drop_content1.select('Table 3')
+                Button:
+                    id: dpbtn1btn4
+                    text: 'Table 4'
+                    size_hint: None, None
+                    height: 35
+                    on_release: drop_content1.select('Table 4')
+                Button:
+                    id: dpbtn1btn5
+                    text: 'Table 5'
+                    size_hint: None, None
+                    height: 35
+                    on_release: drop_content1.select('Table 5')
+                Button:
+                    id: dpbtn1btn6
+                    text: 'Table 6'
+                    size_hint: None, None
+                    height: 35
+                    on_release: drop_content1.select('Table 6')
+                Button:
+                    id: dpbtn1btn7
+                    text: 'Table 7'
+                    size_hint: None, None
+                    height: 35
+                    on_release: drop_content1.select('Table 7')
+                Button:
+                    id: dpbtn1btn8
+                    text: 'Table 8'
+                    size_hint: None, None
+                    height: 35
+                    on_release: drop_content1.select('Table 8')
+                Button:
+                    id: dpbtn1btn9
+                    text: 'Table 9'
+                    size_hint: None, None
+                    height: 35
+                    on_release: drop_content1.select('Table 9')
+                Button:
+                    id: dpbtn1btn10
+                    text: 'Table 10'
+                    size_hint: None, None
+                    height: 35
+                    on_release: drop_content1.select('Table 10')
+                Button:
+                    id: dpbtn1btn11
+                    text: 'Table 11'
+                    size_hint: None, None
+                    height: 35
+                    on_release: drop_content1.select('Table 11')
+                Button:
+                    id: dpbtn1btn12
+                    text: 'Table 12'
+                    size_hint: None, None
+                    height: 35
+                    on_release: drop_content1.select('Table 12')
+
+            MDLabel:
+                text: "4th Goal: "
+
+            MDRaisedButton:
+                text: "Select"
+                id: dpbtn4
+                on_parent: drop_content4.dismiss()
+                on_release: drop_content4.open(self)
+
+            DropDown:
+                id: drop_content4
+                on_select: dpbtn4.text = f'{args[1]}' # see note below
+
+                Button:
+                    id: dpbtn4btn--
+                    text: '--'
+                    size_hint: None, None
+                    height: 35
+                    on_release: drop_content4.select('--')
+
+                Button:
+                    id: dpbtn4btn1
+                    text: 'Table 1'
+                    size_hint: None, None
+                    height: 35
+                    on_release: drop_content4.select('Table 1')
+                Button:
+                    id: dpbtn4btn2
+                    text: 'Table 2'
+                    size_hint: None, None
+                    height: 35
+                    on_release: drop_content4.select('Table 2')
+                Button:
+                    id: dpbtn4btn3
+                    text: 'Table 3'
+                    size_hint: None, None
+                    height: 35
+                    on_release: drop_content4.select('Table 3')
+                Button:
+                    id: dpbtn4btn4
+                    text: 'Table 4'
+                    size_hint: None, None
+                    height: 35
+                    on_release: drop_content4.select('Table 4')
+                Button:
+                    id: dpbtn4btn5
+                    text: 'Table 5'
+                    size_hint: None, None
+                    height: 35
+                    on_release: drop_content4.select('Table 5')
+                Button:
+                    id: dpbtn4btn6
+                    text: 'Table 6'
+                    size_hint: None, None
+                    height: 35
+                    on_release: drop_content4.select('Table 6')
+                Button:
+                    id: dpbtn4btn7
+                    text: 'Table 7'
+                    size_hint: None, None
+                    height: 35
+                    on_release: drop_content4.select('Table 7')
+                Button:
+                    id: dpbtn4btn8
+                    text: 'Table 8'
+                    size_hint: None, None
+                    height: 35
+                    on_release: drop_content4.select('Table 8')
+                Button:
+                    id: dpbtn4btn9
+                    text: 'Table 9'
+                    size_hint: None, None
+                    height: 35
+                    on_release: drop_content4.select('Table 9')
+                Button:
+                    id: dpbtn4btn10
+                    text: 'Table 10'
+                    size_hint: None, None
+                    height: 35
+                    on_release: drop_content4.select('Table 10')
+                Button:
+                    id: dpbtn4btn11
+                    text: 'Table 11'
+                    size_hint: None, None
+                    height: 35
+                    on_release: drop_content4.select('Table 11')
+                Button:
+                    id: dpbtn4btn12
+                    text: 'Table 12'
+                    size_hint: None, None
+                    height: 35
+                    on_release: drop_content4.select('Table 12')
+
+            MDLabel:
+                text: "2nd Goal: "
+
+            MDRaisedButton:
+                text: "Select"
+                id: dpbtn2
+                on_parent: drop_content2.dismiss()
+                on_release: drop_content2.open(self)
+
+            DropDown:
+                id: drop_content2
+                on_select: dpbtn2.text = f'{args[1]}' # see note below
+
+                Button:
+                    id: dpbtn2btn--
+                    text: '--'
+                    size_hint: None, None
+                    height: 35
+                    on_release: drop_content2.select('--')
+
+                Button:
+                    id: dpbtn2btn1
+                    text: 'Table 1'
+                    size_hint: None, None
+                    height: 35
+                    on_release: drop_content2.select('Table 1')
+                Button:
+                    id: dpbtn2btn2
+                    text: 'Table 2'
+                    size_hint: None, None
+                    height: 35
+                    on_release: drop_content2.select('Table 2')
+                Button:
+                    id: dpbtn2btn3
+                    text: 'Table 3'
+                    size_hint: None, None
+                    height: 35
+                    on_release: drop_content2.select('Table 3')
+                Button:
+                    id: dpbtn2btn4
+                    text: 'Table 4'
+                    size_hint: None, None
+                    height: 35
+                    on_release: drop_content2.select('Table 4')
+                Button:
+                    id: dpbtn2btn5
+                    text: 'Table 5'
+                    size_hint: None, None
+                    height: 35
+                    on_release: drop_content2.select('Table 5')
+                Button:
+                    id: dpbtn2btn6
+                    text: 'Table 6'
+                    size_hint: None, None
+                    height: 35
+                    on_release: drop_content2.select('Table 6')
+                Button:
+                    id: dpbtn2btn7
+                    text: 'Table 7'
+                    size_hint: None, None
+                    height: 35
+                    on_release: drop_content2.select('Table 7')
+                Button:
+                    id: dpbtn2btn8
+                    text: 'Table 8'
+                    size_hint: None, None
+                    height: 35
+                    on_release: drop_content2.select('Table 8')
+                Button:
+                    id: dpbtn2btn9
+                    text: 'Table 9'
+                    size_hint: None, None
+                    height: 35
+                    on_release: drop_content2.select('Table 9')
+                Button:
+                    id: dpbtn2btn10
+                    text: 'Table 10'
+                    size_hint: None, None
+                    height: 35
+                    on_release: drop_content2.select('Table 10')
+                Button:
+                    id: dpbtn2btn11
+                    text: 'Table 11'
+                    size_hint: None, None
+                    height: 35
+                    on_release: drop_content2.select('Table 11')
+                Button:
+                    id: dpbtn2btn12
+                    text: 'Table 12'
+                    size_hint: None, None
+                    height: 35
+                    on_release: drop_content2.select('Table 12')
+                
+            MDLabel:
+                text: "5th Goal: "
+
+            MDRaisedButton:
+                text: "Select"
+                id: dpbtn5
+                on_parent: drop_content5.dismiss()
+                on_release: drop_content5.open(self)
+
+            DropDown:
+                id: drop_content5
+                on_select: dpbtn5.text = f'{args[1]}' # see note below
+
+                Button:
+                    id: dpbtn5btn--
+                    text: '--'
+                    size_hint: None, None
+                    height: 35
+                    on_release: drop_content5.select('--')
+
+                Button:
+                    id: dpbtn5btn1
+                    text: 'Table 1'
+                    size_hint: None, None
+                    height: 35
+                    on_release: drop_content5.select('Table 1')
+                Button:
+                    id: dpbtn5btn2
+                    text: 'Table 2'
+                    size_hint: None, None
+                    height: 35
+                    on_release: drop_content5.select('Table 2')
+                Button:
+                    id: dpbtn5btn3
+                    text: 'Table 3'
+                    size_hint: None, None
+                    height: 35
+                    on_release: drop_content5.select('Table 3')
+                Button:
+                    id: dpbtn5btn4
+                    text: 'Table 4'
+                    size_hint: None, None
+                    height: 35
+                    on_release: drop_content5.select('Table 4')
+                Button:
+                    id: dpbtn5btn5
+                    text: 'Table 5'
+                    size_hint: None, None
+                    height: 35
+                    on_release: drop_content5.select('Table 5')
+                Button:
+                    id: dpbtn5btn6
+                    text: 'Table 6'
+                    size_hint: None, None
+                    height: 35
+                    on_release: drop_content5.select('Table 6')
+                Button:
+                    id: dpbtn5btn7
+                    text: 'Table 7'
+                    size_hint: None, None
+                    height: 35
+                    on_release: drop_content5.select('Table 7')
+                Button:
+                    id: dpbtn5btn8
+                    text: 'Table 8'
+                    size_hint: None, None
+                    height: 35
+                    on_release: drop_content5.select('Table 8')
+                Button:
+                    id: dpbtn5btn9
+                    text: 'Table 9'
+                    size_hint: None, None
+                    height: 35
+                    on_release: drop_content5.select('Table 9')
+                Button:
+                    id: dpbtn5btn10
+                    text: 'Table 10'
+                    size_hint: None, None
+                    height: 35
+                    on_release: drop_content5.select('Table 10')
+                Button:
+                    id: dpbtn5btn11
+                    text: 'Table 11'
+                    size_hint: None, None
+                    height: 35
+                    on_release: drop_content5.select('Table 11')
+                Button:
+                    id: dpbtn5btn12
+                    text: 'Table 12'
+                    size_hint: None, None
+                    height: 35
+                    on_release: drop_content5.select('Table 12')
+
+            MDLabel:
+                text: "3rd Goal: "
+
+            MDRaisedButton:
+                text: "Select"
+                id: dpbtn3
+                on_parent: drop_content3.dismiss()
+                on_release: drop_content3.open(self)
+
+            DropDown:
+                id: drop_content3
+                on_select: dpbtn3.text = f'{args[1]}' # see note below
+
+                Button:
+                    id: dpbtn3btn--
+                    text: '--'
+                    size_hint: None, None
+                    height: 35
+                    on_release: drop_content3.select('--')
+
+                Button:
+                    id: dpbtn3btn1
+                    text: 'Table 1'
+                    size_hint: None, None
+                    height: 35
+                    on_release: drop_content3.select('Table 1')
+                Button:
+                    id: dpbtn3btn2
+                    text: 'Table 2'
+                    size_hint: None, None
+                    height: 35
+                    on_release: drop_content3.select('Table 2')
+                Button:
+                    id: dpbtn3btn3
+                    text: 'Table 3'
+                    size_hint: None, None
+                    height: 35
+                    on_release: drop_content3.select('Table 3')
+                Button:
+                    id: dpbtn3btn4
+                    text: 'Table 4'
+                    size_hint: None, None
+                    height: 35
+                    on_release: drop_content3.select('Table 4')
+                Button:
+                    id: dpbtn3btn5
+                    text: 'Table 5'
+                    size_hint: None, None
+                    height: 35
+                    on_release: drop_content3.select('Table 5')
+                Button:
+                    id: dpbtn3btn6
+                    text: 'Table 6'
+                    size_hint: None, None
+                    height: 35
+                    on_release: drop_content3.select('Table 6')
+                Button:
+                    id: dpbtn3btn7
+                    text: 'Table 7'
+                    size_hint: None, None
+                    height: 35
+                    on_release: drop_content3.select('Table 7')
+                Button:
+                    id: dpbtn3btn8
+                    text: 'Table 8'
+                    size_hint: None, None
+                    height: 35
+                    on_release: drop_content3.select('Table 8')
+                Button:
+                    id: dpbtn3btn9
+                    text: 'Table 9'
+                    size_hint: None, None
+                    height: 35
+                    on_release: drop_content3.select('Table 9')
+                Button:
+                    id: dpbtn3btn10
+                    text: 'Table 10'
+                    size_hint: None, None
+                    height: 35
+                    on_release: drop_content3.select('Table 10')
+                Button:
+                    id: dpbtn3btn11
+                    text: 'Table 11'
+                    size_hint: None, None
+                    height: 35
+                    on_release: drop_content3.select('Table 11')
+                Button:
+                    id: dpbtn3btn12
+                    text: 'Table 12'
+                    size_hint: None, None
+                    height: 35
+                    on_release: drop_content3.select('Table 12')
+
+
+    MDRaisedButton:
+        text: "GO!"
+        id: buttGo2
+        pos_hint: {'x': 0.8, 'y': 0.08}
+        md_bg_color: 0.149,0.650,0.356,1
+        on_press:
+            root.queue_task()
+        on_release: 
+            if root.check_valid() != False: app.root.current = "navigating"
+            if root.check_valid() != False: root.manager.transition.direction = 'left'
+            else: root.show_error()
+
+    MDRaisedButton:
+        text: "Back"
+        pos_hint: {'x': 0.2, 'y': 0.08}
+        md_bg_color: 0.811,0,0.0588,1
+        on_release:
+            root.manager.transition.direction = 'left'
+            app.root.current = 'table'
+
+<NavigatingScreen>:
+    name: 'navigating'
+    FloatLayout:
+        cols: 1
+        size: root.width, root.height
+        FloatLayout:
+            MDLabel:
+                id: nl
+                halign: 'center'
+                pos_hint: {'center_x': .5, 'center_y': 0.63}
+                bold: True
+            MDSpinner:
+                size_hint: None, None
+                size: dp(23), dp(23)
+                pos_hint: {'center_x': .5, 'center_y': .5}
+                active: True 
+                
+
+        MDFillRoundFlatIconButton:
+            icon: "danger"        
+            text: "Cancel"
+            #size_hint: 0.2,0.08
+            md_bg_color: 0.811,0,0.0588,1
+            pos_hint: {'x': 0.44, 'y': 0.3}
+            on_release:
+                root.cancel_navigation()
+                root.manager.transition.direction = 'right'
+
+        MDLabel:
+            id: nl2
+            text: "(Clicking Cancel would bring the robot back home)"
+            halign: 'center'
+            font_size: 15
+            pos_hint: {'center_x': .5, 'center_y': 0.2}
+        #Button:
+            #text: "Successful"
+            #size_hint: 0.1,0.1
+            #pos_hint: {'x': 0.8, 'y': 0.3}
+            #on_release:
+                #app.root.current = 'succ'
+                #root.manager.transition.direction = 'left'
+
+        #Button:
+            #text: "Fail"
+            #size_hint: 0.1,0.1
+            #pos_hint: {'x': 0.1, 'y': 0.3}
+            #on_release:
+                #app.root.current = 'fail'
+                #root.manager.transition.direction = 'left'
+
+
+<SuccessfulScreen>:
+    name: 'succ'
+    FloatLayout:
+        cols: 1
+        size: root.width, root.height
+        
+        MDLabel:
+            id: sl1
+            text: 'Navigation successful, destination has been reached.'
+            bold: True
+            halign: 'center'
+            pos_hint: {'x': 0.013, 'y': 0.165}
+
+        MDLabel:
+            id: sl2
+            text: 'Please collect your items.'
+            bold: True
+            halign: 'center'
+            pos_hint: {'y': 0.08}
+
+        MDLabel:
+            id: sl3
+            bold: True
+            halign: 'center'
+            pos_hint: {'y': 0.03}
+
+        MDRaisedButton:
+            id: sb2
+            text: 'Continue to next goal'
+            bold: True
+            halign: 'center'
+            pos_hint: {'x': 0.4,'y': 0.3}
+            md_bg_color: 0.149,0.650,0.356,1
+            on_press:
+                if root.program_paths == True: root.set_next_goal()
+                elif root.program_paths == False: root.show_error()
+            on_release:
+                root.manager.transition.direction = "left"
+        MDRaisedButton:
+            id: sb1
+            text: 'OK, head home'
+            size_hint: 0.20, 0.1
+            halign: 'center'
+            pos_hint: {'x': 0.4, 'y': 0.1}
+            on_release: 
+                app.root.current = 'to_home'
+                root.manager.transition.direction = "left"
+
+<ToHomeScreen>:
+    name: 'to_home'
+    FloatLayout:
+        cols: 1
+        size: root.width, root.height
+        FloatLayout:
+            MDLabel:
+                id: hl
+                halign: 'center'
+                pos_hint: {'center_x': .5, 'center_y': 0.63}
+                bold: True
+            MDSpinner:
+                size_hint: None, None
+                size: dp(23), dp(23)
+                pos_hint: {'center_x': .5, 'center_y': .5}
+                active: True 
+        #MDFillRoundFlatIconButton:
+            #icon: "danger"        
+            #text: "Cancel"
+            #md_bg_color: 0.811,0,0.0588,1
+            #pos_hint: {'x': 0.45, 'y': 0.3}
+            #on_release: app.root.current = 'table'
+                
+<FailScreen>:
+    name: 'fail'
+    FloatLayout:
+        cols: 1
+        size: root.width, root.height
+        MDLabel:
+            id: fl1
+            bold: True
+            text: 'Navigation Failed. Unable to reach destination.'
+            halign: 'center'
+            pos_hint: {'x': 0.013, 'y': 0.165}
+        MDLabel:
+            id: fl2
+            bold: True
+            halign: 'center'
+            pos_hint: {'y': 0.02}
+
+        MDRaisedButton:
+            id: fb2
+            text: 'Continue to next goal'
+            bold: True
+            halign: 'center'
+            pos_hint: {'x': 0.4,'y': 0.35}
+            md_bg_color: 0.149,0.650,0.356,1
+            on_press:
+                if root.program_paths == True: root.set_next_goal()
+                elif root.program_paths == False: root.show_error()
+            on_release:
+                root.manager.transition.direction = "left"
+
+        MDRaisedButton:
+            id: fb1
+            text: "Return to home"
+            size_hint: 0.2,0.1
+            halign: 'center'
+            pos_hint: {'x': 0.40, 'y': 0.2}
+            on_release: app.root.current = 'to_home'
+
+<BatteryScreen>:
+    name: 'robatt'
+    FloatLayout:
+        cols: 1
+        size: root.width, root.height
+        MDLabel:
+            id: batt 
+            bold: True
+            text: 'Robot Battery is currently: '
+            halign: 'center'
+            pos_hint: {'y': 0.1}
+
+        MDLabel:
+            id: bl 
+            bold: True
+            halign: 'center'
+            pos_hint: {'y': 0.02}
+
+        MDRaisedButton:
+            text: 'Back'
+            size_hint: 0.20, 0.1
+            halign: 'center'
+            pos_hint: {'x': 0.4, 'y': 0.3}
+            on_release: 
+                app.root.current = 'table'
+                root.manager.transition.direction = "left"
